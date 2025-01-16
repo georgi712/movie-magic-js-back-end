@@ -1,12 +1,16 @@
 import express from 'express';
 import handlebars from 'express-handlebars';
 import routes from './routes.js';
+import showRaitingHelper from './helpers/ratingHelper.js';
 
 const app = express();
 const port = 3000;
 
 app.engine('hbs', handlebars.engine({
     extname: 'hbs',
+    helpers: {
+        showRating: showRaitingHelper,
+    }
 }));
 
 app.set('view engine', 'hbs');
