@@ -1,0 +1,14 @@
+{
+  "name": "movie-magic-js-back-end",
+  "version": "1.0.0",
+  "description": "JS Back-End Course Workshop",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
