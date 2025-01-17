@@ -60,7 +60,7 @@ export default {
                 );
             }
             if (filter.year) {
-                result = result.filter(movie => movie.year === filter.year);
+                result = result.filter(movie => movie.year == filter.year);
             }
 
             return result;
