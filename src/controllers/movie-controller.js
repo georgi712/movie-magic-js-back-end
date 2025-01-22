@@ -32,7 +32,7 @@ movieController.post('/create', async (req, res) => {
 movieController.get('/:movieId/details', async (req, res) => {
     try {
         const movieId = req.params.movieId;
-        const movie = await movieService.findOne(movieId); 
+        const movie = await movieService.getOne(movieId); 
 
         if (!movie) {
             res.status(404).send("Movie not found.");

@@ -1,30 +1,17 @@
 import { v4 as uuid } from "uuid";
-import fs from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const filePath = path.join(__dirname, '../config/database.json');
+import Movie from "../models/Movie.js";
 
 export default {
-    async findOne(movieId) {
-        try {
-            const data = await fs.readFile(filePath, 'utf-8');
-            const movies = JSON.parse(data || '[]'); // Fallback to an empty array if the file is empty
-            return movies.find(movie => movie.id === movieId) || null; // Return `null` if not found
-        } catch (err) {
-            console.error("Error reading or parsing the movie data:", err);
-            throw err; 
-        }
+    async getOne(movieId) {
+        const result = Movie.findById(movieId);
+        return result;
     },
 
     async create(movieData) {
         const newId = uuid();
 
         try {
-            const data = await fs.readFile(filePath, 'utf-8');
-            const movies = JSON.parse(data || '[]');
+            
 
             const newMovie = {
                 id: newId,
@@ -32,9 +19,8 @@ export default {
                 rating: Number(movieData.rating), 
             };
 
-            movies.push(newMovie);
+            
 
-            await fs.writeFile(filePath, JSON.stringify(movies, null, 2));
             return newId; 
         } catch (err) {
             console.error("Error creating a new movie:", err);
@@ -42,31 +28,19 @@ export default {
         }
     },
 
-    async getAll(filter = {}) {
-        try {
-            const data = await fs.readFile(filePath, 'utf-8');
-            const movies = JSON.parse(data || '[]');
-
-            let result = movies;
+    getAll(filter = {}) {
+            let query = Movie.find({});
 
             if (filter.search) {
-                result = result.filter(movie =>
-                    movie.title.toLowerCase().includes(filter.search.toLowerCase())
-                );
+                query = query.where({title: filter.search});
             }
             if (filter.genre) {
-                result = result.filter(movie =>
-                    movie.genre.toLowerCase() === filter.genre.toLowerCase()
-                );
+                query = query.where({genre: filter.genre})
             }
             if (filter.year) {
-                result = result.filter(movie => movie.year == filter.year);
+                query = query.where({year: Number(filter.year)})
             }
 
-            return result;
-        } catch (err) {
-            console.error("Error fetching movies:", err);
-            throw err; 
-        }
+            return query;
     }
 };
