@@ -7,7 +7,6 @@ const router = Router();
 router.get('/', async (req, res) => {
     try {
         const movies = await movieService.getAll();
-        console.log(movies);
         res.render('home', { movies });
     } catch (err) {
         console.error("Error fetching movies:", err);

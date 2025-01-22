@@ -2,9 +2,18 @@ import express from 'express';
 import handlebars from 'express-handlebars';
 import routes from './routes.js';
 import showRaitingHelper from './helpers/ratingHelper.js';
+import mongoose from 'mongoose';
 
 const app = express();
 const port = 3000;
+
+try {
+    const uri = "mongodb://localhost:27107/magic-movie-back-end"
+    await mongoose.connect(uri);
+    console.log('Conected sucessfuly!');
+} catch (err) {
+    console.error(err);
+}
 
 app.engine('hbs', handlebars.engine({
     extname: 'hbs',
