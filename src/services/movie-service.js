@@ -1,4 +1,3 @@
-import { v4 as uuid } from "uuid";
 import Movie from "../models/Movie.js";
 
 export default {
@@ -8,24 +7,15 @@ export default {
     },
 
     async create(movieData) {
-        const newId = uuid();
 
-        try {
-            
+        const result = Movie.create({
+            ...movieData,
+            rating: Number(movieData.rating),
+            year: Number(movieData.year),
+        });
 
-            const newMovie = {
-                id: newId,
-                ...movieData,
-                rating: Number(movieData.rating), 
-            };
+        return result;
 
-            
-
-            return newId; 
-        } catch (err) {
-            console.error("Error creating a new movie:", err);
-            throw err; 
-        }
     },
 
     getAll(filter = {}) {
