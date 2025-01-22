@@ -8,7 +8,7 @@ const app = express();
 const port = 3000;
 
 try {
-    const uri = "mongodb://localhost:27107/magic-movie-back-end"
+    const uri = "mongodb://127.0.0.1:27017/magic-movie-back-end"
     await mongoose.connect(uri);
     console.log('Conected sucessfuly!');
 } catch (err) {
