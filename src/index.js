@@ -3,13 +3,13 @@ import handlebars from 'express-handlebars';
 import routes from './routes.js';
 import showRaitingHelper from './helpers/ratingHelper.js';
 import mongoose from 'mongoose';
+import 'dotenv/config';
 
 const app = express();
 const port = 3000;
 
 try {
-    const uri = "mongodb://127.0.0.1:27017/magic-movie-back-end"
-    await mongoose.connect(uri);
+    await mongoose.connect(process.env.DATABASE_URI);
     console.log('Conected sucessfuly!');
 } catch (err) {
     console.error(err);

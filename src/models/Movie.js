@@ -10,8 +10,12 @@ const movieSchema = new Schema({
     rating: Number,
     description: String,
     casts: [{
-        type: Types.ObjectId,
-        ref: 'Cast'
+        _id: false,
+        character: String,
+        cast: {
+            type: Types.ObjectId,
+            ref: 'Cast'    
+        },
     }]
 })
 

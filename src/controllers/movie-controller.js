@@ -31,27 +31,28 @@ movieController.post('/create', async (req, res) => {
 });
 
 movieController.get('/:movieId/details', async (req, res) => {
-    try {
+    
         const movieId = req.params.movieId;
-        const movie = await movieService.getOne(movieId); 
+        const movie = await movieService.getOneWithCast(movieId); 
 
-        if (!movie) {
-            res.status(404).send("Movie not found.");
-            return;
-        }
-
+        
         res.render('movie/details', { movie });
-    } catch (err) {
-        console.error("Error fetching movie details:", err);
-        res.status(500).send("An error occurred while fetching movie details.");
-    }
+    
 });
 
 movieController.get('/:movieId/attach-cast', async (req, res) => {
     const movieId = req.params.movieId;
     const movie = await movieService.getOne(movieId)
-    const casts = await castService.getAll()
+    const casts = await castService.getAll({exclude: movie.casts});
     res.render('movie/attach-cast', {movie, casts})
+})
+movieController.post('/:movieId/attach-cast', async (req, res) => {
+    const castId = req.body.cast;
+    const character = req.body.character;
+    const movieId = req.params.movieId;
+    await movieService.attachCast(movieId, castId, character);
+
+    res.redirect(`/movies/${movieId}/details`)
 })
 
 export default movieController;
