@@ -4,6 +4,8 @@ import routes from './routes.js';
 import showRaitingHelper from './helpers/ratingHelper.js';
 import mongoose from 'mongoose';
 import 'dotenv/config';
+import cookieParser from 'cookie-parser';
+import { authMiddleware } from './middlewares/auth-middleware.js';
 
 const app = express();
 const port = 3000;
@@ -31,6 +33,8 @@ app.set('views', './src/views');
 
 app.use('/static', express.static('src/public'));
 app.use(express.urlencoded({extended: false}));
+app.use(cookieParser());
+app.use(authMiddleware);
 
 app.use(routes);
 
