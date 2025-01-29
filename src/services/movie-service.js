@@ -57,5 +57,8 @@ export default {
                     }
                 }
         });
+    },
+    delete(movieId) {
+        return Movie.findByIdAndDelete(movieId);
     }
 };
