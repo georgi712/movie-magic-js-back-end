@@ -22,7 +22,8 @@ movieController.get('/search', async (req, res) => {
 movieController.post('/create', async (req, res) => {
     try {
         const newMovie = req.body;
-        await movieService.create(newMovie); 
+        const userId = req.user?.id
+        await movieService.create(newMovie, userId); 
         res.redirect('/');
     } catch (err) {
         console.error("Error creating a new movie:", err);
@@ -33,9 +34,9 @@ movieController.post('/create', async (req, res) => {
 movieController.get('/:movieId/details', async (req, res) => {
         const movieId = req.params.movieId;
         const movie = await movieService.getOneWithCast(movieId); 
-
+        const isCreator = movie.creator && movie.creator.toString() === req.user?.id
         
-        res.render('movie/details', { movie });
+        res.render('movie/details', { movie, isCreator });
     
 });
 
