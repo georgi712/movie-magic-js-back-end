@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Catalog Page</title>
-    <!-- Do not forget to change the path to the css file -->
     <link href="/static/css/style.css" type="text/css" rel="stylesheet">
 </head>
 
@@ -13,20 +12,21 @@
     <div id="box">
 
        <nav>
-            <!-- Do not forget to change the path to the image -->
             <img src="/static/img/logo.webp" alt="logo">
 
             <ul class="menu">
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
                 <li><a href="/movies/search">Search</a></li>
-                <!--Users-->
+                {{#if user}}
                 <li><a href="/movies/create">Create Post</a></li>
                 <li><a href="/casts/create">Create Cast</a></li>
                 <li><a href="/auth/logout">Logout</a></li>
-                <!--Guest-->
+                <li>{{user.email}}</li>
+                {{else}}
                 <li><a href="/auth/login">Login</a></li>
                 <li><a href="/auth/register">Register</a></li>
+                {{/if}}
             </ul>
 
         </nav>
