@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import movieService from '../services/movie-service.js';
 import castService from '../services/cast-service.js';
+import { isAuth } from '../middlewares/auth-middleware.js';
 
 const movieController = Router();
 

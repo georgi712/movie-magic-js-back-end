@@ -1,10 +1,11 @@
 import express from 'express';
 import handlebars from 'express-handlebars';
+import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
+import 'dotenv/config'; 
+
 import routes from './routes.js';
 import showRaitingHelper from './helpers/ratingHelper.js';
-import mongoose from 'mongoose';
-import 'dotenv/config';
-import cookieParser from 'cookie-parser';
 import { authMiddleware } from './middlewares/auth-middleware.js';
 
 const app = express();
@@ -41,3 +42,4 @@ app.use(routes);
 app.listen(port, () => {
     console.log('App is running on http://localhost:3000...');
 })
+console.log('TODO: isAuth');
