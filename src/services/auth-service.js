@@ -5,7 +5,18 @@ import jwt  from "jsonwebtoken";
 const Secret = process.env.JWT_SECRET || "asasasasasas";
 
 export default {
-    register(userData) {
+    async register(userData) {
+        
+        if (userData.password !== userData.rePassword) {
+            throw new Error('Password mismatch!')
+        }    
+    
+        const count = await User.countDocuments({ email: userData.email});
+
+        if (count > 0) {
+            throw new Error('Email alredy exists!');
+        }
+
         return User.create(userData);
     },
     async login(email, password) {
