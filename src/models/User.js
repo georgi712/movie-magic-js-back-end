@@ -11,7 +11,8 @@ const userSchema = new Schema({
     password: {
         type: String,
         match: /^\w+$/,
-        minLength: 6
+        minLength: 6,
+        trim: true
     },
 })
 
