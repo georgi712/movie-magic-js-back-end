@@ -5,13 +5,13 @@ const userSchema = new Schema({
     email: {
         type: String, 
         unique: true,
-        match: /\@[a-zA-z]+.[a-zA-Z]+$/,
-        minLength: 10
+        match: [/\@[a-zA-z]+.[a-zA-Z]+$/, 'Invalid format!'],
+        minLength: [10, 'Minimum lenght is 10 character!'],
     },
     password: {
         type: String,
-        match: /^\w+$/,
-        minLength: 6,
+        match: [/^[a-zA-z0-9 ]+$/, 'Forbidden character!'],
+        minLength: [6, 'Minimum lenght is 6 character!'],
         trim: true
     },
 })

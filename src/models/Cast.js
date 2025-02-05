@@ -4,23 +4,23 @@ const castSchema = new Schema({
     name: {
         type: String,
         required: [true, 'This field is required!'],
-        minLength: 5,
-        match: /^[a-zA-z0-9 ]+$/
+        minLength: [5, 'Minimum lenght is 5 character!'],
+        match: [/^[a-zA-z0-9 ]+$/, 'Forbidden character!']
     },
     age: {
         type: Number,
-        min: 0,
-        max: 120
+        min: [0, 'Minimum age is 0!'],
+        max: [120, 'Maximum age is 120!']
     },
     born: {
         type: String,
         required: [true, 'This field is required!'],
-        minLength: 10,
-        match: /^[a-zA-z0-9 ]+$/
+        minLength: [10, 'Minimum lenght is 10 character!'],
+        match: [/^[a-zA-z0-9 ]+$/, 'Forbidden character!']
     },
     imageUrl: {
         type: String,
-        match: /^https?:\/\//
+        match: [/^https?:\/\//, 'Invalid format!']
     },
 })
 
